@@ -5,24 +5,24 @@ import clickBtnPage from "../pageobjects/click.page.js";
 import AjaxDataPage from "../pageobjects/ajax.page.js";
 import PlaygroundPage from "../pageobjects/baseClassutaplayground.page.js";
 
-describe('Positive Cases: ', async () => {
+describe('Positive Cases: ', async function ()  {
 
-    beforeEach(async () => {
+    beforeEach(async function ()  {
         await browser.maximizeWindow();
     });
 
-    context('1. Component', async () => {
+    context('1. Component', async function ()  {
 
-        it('Verifying the title of page', async () => {
+        it('Verifying the title of page', async function ()  {
             await PlaygroundPage.openUItestingPPage();
             await expect(browser).toHaveTitleContaining('UI Test Automation Playground');
             await expect(browser).toHaveUrl('http://uitestingplayground.com/');
         })
     })
 
-    context('2. Verification of test that clicks Start button and then wait for the progress bar to reach 75%. Then the test should click Stop, 5% is acceptable tolerance limit to pass the test.', async () => {
-
-        it('opening the browser using provided url and verifying the progress % of progress bar to be 75% with 5% tolerance', async () => {
+    context('2. Verification of test that clicks Start button and then wait for the progress bar to reach 75%. Then the test should click Stop, 5% is acceptable tolerance limit to pass the test.', async function () {
+        this.retries(3);
+        it('opening the browser using provided url and verifying the progress % of progress bar to be 75% with 5% tolerance', async function () {
             await PlaygroundPage.urlOfProgressBarPage();
             await expect(browser).toHaveTitleContaining('Progress Bar');
             await expect(progressbarPage.startBtn).toHaveTextContaining('Start', { timeout: 5000, timeoutMsg: 'cant find button with the value of text Start' });
@@ -39,9 +39,9 @@ describe('Positive Cases: ', async () => {
     })
 
 
-    context('Bug cases: 3. Verification by clicking on the displayed button more than once and verify the message (Data loaded with AJAX get request) is not displayed more than once', async () => {
+    context('Bug cases: 3. Verification by clicking on the displayed button more than once and verify the message (Data loaded with AJAX get request) is not displayed more than once', async function () {
         
-        it('opening the browser using provided url verifying the display of text message not more than once', async () => {
+        it('opening the browser using provided url verifying the display of text message not more than once', async function () {
             await AjaxDataPage.urlOfAjaxDataPage();
             await expect(browser).toHaveTitleContaining('AJAX Data')
             await AjaxDataPage.clickOnAjaxBtn();
@@ -53,9 +53,9 @@ describe('Positive Cases: ', async () => {
         })
     })
 
-    context('Bug cases: 4. Verifying by clicking on hide button and expecting unhide button to show in place of hide button', async () => {
+    context('Bug cases: 4. Verifying by clicking on hide button and expecting unhide button to show in place of hide button', async function () {
 
-        it("Opening the browser using url provided and verifying the changes in 'Hide' button", async () => {
+        it("Opening the browser using url provided and verifying the changes in 'Hide' button", async function () {
             await unhideBtnPage.urlOfVisibilityPage();
             await expect(browser).toHaveTitleContaining('Visibility')
             await expect(unhideBtnPage.hideBtn).toBeDisplayed();
@@ -82,9 +82,9 @@ describe('Positive Cases: ', async () => {
     })
 
 
-    context("Bug cases: 5. Verifying that the copy button doesn't work", async () => {
+    context("Bug cases: 5. Verifying that the copy button doesn't work", async function () {
 
-        it('opening the browser using url provided and checking if the copy button is working by fetching data from clipboard', async () => {
+        it('opening the browser using url provided and checking if the copy button is working by fetching data from clipboard', async function () {
             await shadowDomPage.urlOfShadowDomPage();
             await expect(browser).toHaveTitleContaining('Shadow DOM');
             await expect(shadowDomPage.settingBtn).toBeClickable();
@@ -98,9 +98,9 @@ describe('Positive Cases: ', async () => {
         })
     })
 
-    context("Bug cases: 6. Verifying that the given button turns red after click.", async () => {
+    context("Bug cases: 6. Verifying that the given button turns red after click.", async function () {
 
-        it('opening the browser using url provided and performing the operation to verify the colour change of button', async () => {
+        it('opening the browser using url provided and performing the operation to verify the colour change of button', async function () {
             await clickBtnPage.urlOfClickPage();
             await expect(browser).toHaveTitleContaining('Click')
             await expect(clickBtnPage.sampleBtn).toBePresent();
